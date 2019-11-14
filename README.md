@@ -10,3 +10,6 @@ Directions for Completing this ReadMe (Delete This When Done):
 2. Give credit - include a list of your teammates and links to their github profiles.
 3. Links to other parts of the project (github repository and deployed version)
 4. A Message About support for this repository and your contact information incase anyone has questions.
+
+Product Canvas: 
+https://docs.google.com/document/d/1bsorUpw2ouQi56Zl-gvDdWeeLAQfQX9skcXsw2bv6KU/edit?usp=sharing
