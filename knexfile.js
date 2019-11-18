@@ -6,6 +6,11 @@ module.exports = {
       filename: './data/droom.db3'
     },
     useNullAsDefault: true,
+    pool: {
+      afterCreate: (conn, done) => {
+        conn.run('PRAGMA foreign_keys = ON', done);
+      },
+    },
     migrations : {
       directory: './data/migrations'
     },
@@ -17,17 +22,19 @@ module.exports = {
   staging: {
     client: 'pg',
     connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
+      filename: './data/droom.db3'
     },
     pool: {
-      min: 2,
-      max: 10
+      afterCreate: (conn, done) => {
+        conn.run('PRAGMA foreign_keys = ON', done);
+      },
     },
-    migrations: {
-      tableName: 'knex_migrations'
-    }
+    migrations : {
+      directory: './data/migrations'
+    },
+    seeds: {
+      directory: './data/seeds'
+    },
   },
 
   production: {
@@ -36,8 +43,9 @@ module.exports = {
       filename: './data/droom.db3'
     },
     pool: {
-      min: 2,
-      max: 10
+      afterCreate: (conn, done) => {
+        conn.run('PRAGMA foreign_keys = ON', done);
+      },
     },
     migrations : {
       directory: './data/migrations'
