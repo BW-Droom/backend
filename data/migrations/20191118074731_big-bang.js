@@ -46,7 +46,7 @@ exports.up = function(knex, Promise) {
             .inTable('jobs')
             .onUpdate('CASCADE')
             .onDelete('CASCADE');
-        tbl.interger('quality');
+        tbl.integer('quality');
         tbl.primary(['job_seeker_id','company_id']);
     })
     .createTable('company_job', tbl => {
