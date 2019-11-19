@@ -5,10 +5,14 @@ module.exports = {
     remove,
 };
 
-function insert() {
+function insert(match) {
     return db('match')
+        .insert(match)
+        .then(([id]) => findById(id))
 };
 
-function remove() {
+function remove(id) {
     return db('match')
+        .where({id})
+        .del()
 };
