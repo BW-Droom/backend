@@ -7,10 +7,10 @@ server.use(express.json());
 
 
 
-// server.get('/', (req, res) => {
+server.get('/', (req, res) => {
 
-//     res.status(200).json({message: "It's Working!"})
-// })
+    res.status(200).json({message: "It's Working!"})
+})
 
 
 module.exports = server;
