@@ -2,7 +2,7 @@ const db = require('../../data/db-config');
 
 module.exports = {
     find,
-    findBy,
+    findByEmail,
     findById,
     insert,
     update, 
@@ -20,9 +20,10 @@ function find() {
     return db('companies');
 };
 
-function findBy(filter) {
+function findByEmail(email) {
     return db('companies')
-        .where(filter);
+        .where({company_email: email})
+        .first();
 };
 
 function findById(id) {
