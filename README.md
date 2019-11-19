@@ -14,5 +14,5 @@ Directions for Completing this ReadMe (Delete This When Done):
 Product Canvas: 
 https://docs.google.com/document/d/1bsorUpw2ouQi56Zl-gvDdWeeLAQfQX9skcXsw2bv6KU/edit?usp=sharing
 
-Base URL for API:
+Base URL for API endpoints:
 https://droombackend.herokuapp.com/
