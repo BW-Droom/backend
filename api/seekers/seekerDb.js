@@ -66,5 +66,6 @@ function findJobs() {
 function findMatch(seekerId) {
     return db('match as m')
         .join('companies as c', 'c.id', 'm.company_id')
-        .where({seekerId})
+        .join('jobs as j', 'j.id', 'm.job_id')
+        .where({job_seeker_id: seekerId})
 };
