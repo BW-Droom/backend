@@ -1,5 +1,5 @@
 const express = require('express');
-const companyRoutes = require('./companies/companyRoutes')
+const companyRoutes = require('./api/companies/companyRoutes')
 const server = express();
 
 server.use(express.json());
