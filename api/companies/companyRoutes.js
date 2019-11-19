@@ -6,8 +6,12 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
     db.find()
-        .then( companies => {
+        .then(companies => {
             res.status(200).json(companies)
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({message: "Could not find companies"})
         })
 });
 
