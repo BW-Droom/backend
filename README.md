@@ -16,3 +16,6 @@ https://docs.google.com/document/d/1bsorUpw2ouQi56Zl-gvDdWeeLAQfQX9skcXsw2bv6KU/
 
 Base URL for API endpoints:
 https://droombackend.herokuapp.com/
+
+API Documentation:
+https://documenter.getpostman.com/view/8921227/SW7Z4ULY
