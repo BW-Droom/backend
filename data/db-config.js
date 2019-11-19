@@ -1,9 +1,9 @@
 const knex = require('knex');
 
-const secrets = require('./secrets.js');
+const secrets = require('../config/secrets');
 
 const environment = secrets.environment || 'development';
 const config = require('../knexfile.js')[environment];
 
 
-module.export = knex(config.development);
+module.exports = knex(config.environment);
