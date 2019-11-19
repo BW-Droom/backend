@@ -56,8 +56,11 @@ function remove(id) {
 };
 
 function findJobs(companyId) {
-    return db('jobs')
-        .where(companyId)
+    return db('jobs as j')
+        .join('company_job as cj', 'cj.job_id', 'j.id')
+        .join('companies as c', 'c.id', 'cj.company_id')
+        .select('j.id', 'j.job_title', 'j.description')
+        .where({company_id: companyId})
 };
 
 // to Find Jobs By Id, the front end should .filter the array returned by findJobs by the id property
@@ -98,5 +101,5 @@ function removeJob(id) {
 function findMatch(companyId) {
     return db('match as m')
     .join('job_seekers as js', 'js.id', 'm.company_id')
-    .where({companyId})
+    .where({company_id: companyId})
 };

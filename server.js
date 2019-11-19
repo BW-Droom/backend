@@ -8,8 +8,8 @@ const authenticate = require('./auth/authMiddleware')
 const server = express();
 
 server.use(express.json());
-server.use('/api/company', authenticate, companyRoutes);
-server.use('/api/seeker', seekerRoutes);
+server.use('/api/company', companyRoutes);
+server.use('/api/seeker', authenticate, seekerRoutes);
 server.use('/api/match', authenticate, matchRoutes);
 server.use('/auth', authRoutes);
 
