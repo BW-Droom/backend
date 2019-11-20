@@ -25,11 +25,6 @@ server.use('/api/seeker', authenticate, seekerRoutes);
 server.use('/api/match', authenticate, matchRoutes);
 server.use('/auth', authRoutes);
 
-const corsOptions = {
-    credentials: true,
-    origin: 'http://localhost:3000'
-};
-
 server.get('/', (req, res) => {
 
     res.status(200).json({message: "It's Working!"})
