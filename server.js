@@ -6,6 +6,7 @@ const companyRoutes = require('./api/companies/companyRoutes');
 const seekerRoutes = require('./api/seekers/seekerRoutes');
 const matchRoutes = require('./api/match/matchRoutes');
 const authRoutes = require('./auth/authRoutes')
+const authenticate = require('./auth/authMiddleware')
 
 const server = express();
 
@@ -19,21 +20,14 @@ const corsOptions = {
 };
 server.use(cors(corsOptions));
 
-server.use('/api/company', companyRoutes);
-server.use('/api/seeker', seekerRoutes);
-server.use('/api/match', matchRoutes);
+server.use('/api/company', authenticate, companyRoutes);
+server.use('/api/seeker', authenticate, seekerRoutes);
+server.use('/api/match', authenticate, matchRoutes);
 server.use('/auth', authRoutes);
 
 const corsOptions = {
     credentials: true,
     origin: 'http://localhost:3000'
-    // origin: function (origin, callback) {
-    //     if (whitelist.indexOf(origin) !== -1) {
-    //       return callback(null, true)
-    //     } else {
-    //       return callback(new Error('Not allowed by CORS'))
-    //     }
-    // }
 };
 
 server.get('/', (req, res) => {
