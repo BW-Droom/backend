@@ -59,14 +59,19 @@ router.get('/:id/match', (req, res) => {
 
 router.put('/:id', (req, res) => {
     const { id } = req.params;
+    const company = req.body;
 
-    db.update(id)
-        .then(seeker => {
-           res.status(200).json(seeker)
+    db.update(company, id)
+        .then(company => {
+            if (!company) {
+                res.status(400).json({message: "Unable to update company profile"})
+            } else {
+                res.status(200).json(company)
+            }
         })
         .catch(err => {
             console.log(err)
-            res.status(500).json({message: "Unable to delete this account"})
+            res.status(500).json({message: "Unable to update this account"})
         })
 })
 
@@ -86,4 +91,5 @@ router.delete('/:id', (req, res) => {
         res.status(500).json({message: "Unable to delete this account"})
     })
 });
+
 module.exports = router;

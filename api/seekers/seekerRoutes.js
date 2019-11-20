@@ -58,14 +58,19 @@ router.get('/:id/match', (req, res) => {
 
 router.put('/:id', (req, res) => {
     const { id } = req.params;
+    const seeker = req.body;
 
-    db.update(id)
+    db.update(seeker, id)
         .then(seeker => {
-           res.status(200).json(seeker)
+            if (!seeker) {
+                res.status(400).json({message: "Unable to edit profile"})
+            } else {
+                res.status(200).json(seeker)
+            }
         })
         .catch(err => {
             console.log(err)
-            res.status(500).json({message: "Unable to delete this account"})
+            res.status(500).json({message: "Unable to edit this account"})
         })
 })
 
