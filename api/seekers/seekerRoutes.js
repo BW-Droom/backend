@@ -56,6 +56,39 @@ router.get('/:id/match', (req, res) => {
         })
 })
 
+router.put('/:id', (req, res) => {
+    const { id } = req.params;
+    const seeker = req.body;
 
+    db.update(seeker, id)
+        .then(seeker => {
+            if (!seeker) {
+                res.status(400).json({message: "Unable to edit profile"})
+            } else {
+                res.status(200).json(seeker)
+            }
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({message: "Unable to edit this account"})
+        })
+})
+
+router.delete('/:id', (req, res) => {
+    const { id } = req.params;
+
+    db.remove(id)
+    .then(count => {
+        if(count > 0) {
+            res.status(200).json({message: `Successfully deleted ${count} account`})
+        } else {
+            res.status(400).json({message: "Account was not deleted successfully"})
+        }
+    })
+    .catch(err => {
+        console.log(err)
+        res.status(500).json({message: "Unable to delete this account"})
+    })
+});
 
 module.exports = router;
