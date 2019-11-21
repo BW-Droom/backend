@@ -5,14 +5,17 @@ module.exports = {
     remove,
 };
 
+// need job_seeker_id, company_id, job_id
 function insert(match) {
     return db('match')
         .insert(match)
-        .then(([id]) => findById(id))
+        .then(([id]) => {
+            return id
+        })
 };
 
-function remove(id) {
+function remove({sId, jId}) {
     return db('match')
-        .where({id})
+        .where({job_seeker_id: sId, job_id: jId})
         .del()
 };

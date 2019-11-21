@@ -8,7 +8,7 @@ module.exports = {
     update, 
     remove,
     findJobs,
-    // findJobById,
+    findJobById,
     findMatch,
 
 };
@@ -55,16 +55,21 @@ function remove(id) {
 function findJobs() {
     return db('jobs as j')
         .join('companies as c', 'c.id', 'j.company_id')
-};
+        .select('j.company_id', 'c.company_name', 'c.company_email', 'c.location', 'c.phone_number',  'j.id as job_id', 'j.job_title', 'j.description')
+    };
 
-// to Find Jobs By Id, the front end should .filter the array returned by findJobs by the id property
-// function findJobById() {
-//     return db('jobs')
-// };
+function findJobById(id) {
+    return db('jobs as j')
+        .join('companies as c', 'c.id', 'j.company_id')
+        .select('j.company_id', 'c.company_name', 'c.company_email', 'c.location', 'c.phone_number',  'j.id as job_id', 'j.job_title', 'j.description')
+        .where({job_id: id})
+        .first()
+};
 
 function findMatch(seekerId) {
     return db('match as m')
         .join('companies as c', 'c.id', 'm.company_id')
         .join('jobs as j', 'j.id', 'm.job_id')
+        .select('m.*', 'c.company_name', 'c.company_email', 'c.location', 'c.phone_number', 'j.job_title', 'j.description')
         .where({job_seeker_id: seekerId})
 };
