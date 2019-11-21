@@ -54,8 +54,7 @@ function remove(id) {
 
 function findJobs() {
     return db('jobs as j')
-        .join('company_job as cj', 'cj.job_id', 'j.id')
-        .join('companies as c', 'c.id', 'cj.company_id')
+        .join('companies as c', 'c.id', 'j.company_id')
 };
 
 // to Find Jobs By Id, the front end should .filter the array returned by findJobs by the id property

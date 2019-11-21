@@ -34,6 +34,7 @@ router.get('/:id', (req, res) => {
 
 router.get('/:id/jobs', (req, res) => {
     const { id } = req.params
+    
     db.findJobs(id)
         .then(jobs => {
             res.status(200).json(jobs)
@@ -97,7 +98,7 @@ router.post('/:id/jobs', (req, res) => {
     const job = req.body;
 
     db.insertJob(job, id)
-        .then(something => {
+        .then(somthing => {
             res.status(200).json(something)
         })
         .catch(err => {
