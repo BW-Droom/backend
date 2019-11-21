@@ -56,10 +56,7 @@ function remove(id) {
 };
 
 function findJobs(companyId) {
-    return db('jobs as j')
-        .join('company_job as cj', 'cj.job_id', 'j.id')
-        .join('companies as c', 'c.id', 'cj.company_id')
-        // .select('j.id', 'j.job_title', 'j.description')
+    return db('jobs')
         .where({company_id: companyId})
 };
 
