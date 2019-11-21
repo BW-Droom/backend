@@ -8,7 +8,7 @@ module.exports = {
     update, 
     remove,
     findJobs,
-    // findJobById,
+    findJobById,
     insertJob,
     updateJob,
     removeJob,
@@ -60,21 +60,17 @@ function findJobs(companyId) {
         .where({company_id: companyId})
 };
 
-// to Find Jobs By Id, the front end should .filter the array returned by findJobs by the id property
-// function findJobById(companyId, id) {
-//     return db('jobs')
-//         .where(companyId)
-//         .then(([jobs]) => {
-            
-//         })
-// };
+function findJobById(id) {
+    return db('jobs')
+        .where({id: id})
+        .first()
+};
 
-function insertJob(job, companyId) {
-    return db('jobs as j')
-        .join('company_job as cj', 'cj.job_id', 'j.id')
-        .insert(job, companyId, 'id')
+function insertJob(job) {
+    return db('jobs')
+        .insert(job,'id')
         .then(([id]) => {
-            return id
+            return findJobById(id)
         })
         //add message to endpoint "Created Job with id of ${id}"
 };
@@ -83,8 +79,8 @@ function updateJob(job, id) {
     return db('jobs')
         .where({id})
         .update(job)
-        .then(([id]) => {
-            return id
+        .then(count => {
+            return count
         })
         //add message to endpoint "Updated Job with id of ${id}"
 };
