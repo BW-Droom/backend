@@ -62,7 +62,7 @@ function findJobById(id) {
     return db('jobs as j')
         .join('companies as c', 'c.id', 'j.company_id')
         .select('j.company_id', 'c.company_name', 'c.company_email', 'c.location', 'c.phone_number',  'j.id as jobId', 'j.job_title', 'j.description')
-        .where({jobId: id})
+        .where({id})
         .first()
 };
 
