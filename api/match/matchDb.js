@@ -8,7 +8,7 @@ module.exports = {
 // need job_seeker_id, company_id, job_id
 function insert(match) {
     return db('match')
-        .insert(match)
+        .insert(match, 'id')
         .then(([id]) => {
             return id
         })
