@@ -94,6 +94,8 @@ function removeJob(id) {
 
 function findMatch(companyId) {
     return db('match as m')
-    .join('job_seekers as js', 'js.id', 'm.company_id')
-    .where({company_id: companyId})
+    .join('job_seekers as js', 'js.id', 'm.job_seeker_id')
+    .join('jobs as j', 'j.id', 'm.job_id')
+    .select('m.company_id as companyId', 'm.job_seeker_id', 'js.name', 'js.email', 'js.occupation', 'js.experience', 'js.dream_job', 'm.job_id', 'j.job_title', 'j.description')
+    .where({companyId: companyId})
 };

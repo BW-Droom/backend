@@ -41,7 +41,20 @@ router.get('/:id/jobs', (req, res) => {
             console.log(err)
             res.status(500).json({message: "Unable to find Jobs"})
         })
-})
+});
+
+router.get('/:id/jobs/:jobId', (req, res) => {
+    const { jobId } = req.params
+
+    db.findJobById(jobId)
+        .then(job => {
+            res.status(200).json(job)
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({message: "Unable to find job"})
+        })
+});
 
 router.get('/:id/match', (req, res) => {
     const { id } = req.params;
