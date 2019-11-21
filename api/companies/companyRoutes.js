@@ -43,7 +43,7 @@ router.get('/:id/jobs', (req, res) => {
             console.log(err)
             res.status(500).json({message: "Unable to find Jobs"})
         })
-})
+});
 
 router.get('/:id/match', (req, res) => {
     const { id } = req.params;
@@ -56,7 +56,7 @@ router.get('/:id/match', (req, res) => {
             console.log(err)
             res.status(500).json({message: "Unable to find Matches for this company"})
         })
-})
+});
 
 router.put('/:id', (req, res) => {
     const { id } = req.params;
@@ -74,7 +74,7 @@ router.put('/:id', (req, res) => {
             console.log(err)
             res.status(500).json({message: "Unable to update this account"})
         })
-})
+});
 
 router.delete('/:id', (req, res) => {
     const { id } = req.params;
@@ -93,18 +93,66 @@ router.delete('/:id', (req, res) => {
     })
 });
 
+router.get('/:id/jobs/:jobId', (req, res) => {
+    const { jobId } = req.params
+
+    db.findJobById(jobId)
+        .then(job => {
+            res.status(200).json(job)
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({message: "Unable to find job"})
+        })
+});
+
 router.post('/:id/jobs', (req, res) => {
     const { id } = req.params;
     const job = req.body;
 
-    db.insertJob(job, id)
-        .then(somthing => {
-            res.status(200).json(something)
+    db.insertJob({...job, company_id: id})
+        .then(job => {
+            res.status(200).json(job)
         })
         .catch(err => {
             console.log(err)
             res.status(500).json({message: "Unable to add a new job"})
         })
-})
+});
+
+router.put('/:id/jobs/:jobId', (req, res) => {
+    const { jobId } = req.params;
+    const job = req.body;
+
+    db.updateJob(job, jobId)
+        .then(count => {
+            if (count > 0) {
+                res.status(200).json({messgae: `${count} job was updated`})
+            } else {
+                res.status(400).json({messgae: "Could not edit job at this id"})
+            }
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({message: "Unable to edit job"})
+        })
+});
+
+router.delete('/:id/jobs/:jobId', (req, res) => {
+    const { jobId } = req.params;
+
+    db.removeJob(jobId)
+        .then(count=> {
+            if(count > 0) {
+                res.status(200).json({message: `${count} job has been removed`})
+            } else {
+                res.status(404).json({message: 'job with this id not found'})
+            }
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({message: 'Unable to delete job'})
+        })
+});
 
 module.exports = router;
