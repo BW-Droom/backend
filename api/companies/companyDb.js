@@ -59,7 +59,7 @@ function findJobs(companyId) {
     return db('jobs as j')
         .join('company_job as cj', 'cj.job_id', 'j.id')
         .join('companies as c', 'c.id', 'cj.company_id')
-        .select('j.id', 'j.job_title', 'j.description')
+        // .select('j.id', 'j.job_title', 'j.description')
         .where({company_id: companyId})
 };
 
@@ -72,9 +72,10 @@ function findJobs(companyId) {
 //         })
 // };
 
-function insertJob(job) {
-    return db('jobs')
-        .insert(job, 'id')
+function insertJob(job, companyId) {
+    return db('jobs as j')
+        .join('company_job as cj', 'cj.job_id', 'j.id')
+        .insert(job, companyId, 'id')
         .then(([id]) => {
             return id
         })

@@ -92,4 +92,18 @@ router.delete('/:id', (req, res) => {
     })
 });
 
+router.post('/:id/jobs', (req, res) => {
+    const { id } = req.params;
+    const job = req.body;
+
+    db.insertJob(job, id)
+        .then(something => {
+            res.status(200).json(something)
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({message: "Unable to add a new job"})
+        })
+})
+
 module.exports = router;
